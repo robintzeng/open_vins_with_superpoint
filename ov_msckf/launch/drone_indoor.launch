@@ -1,0 +1,63 @@
+<launch>
+
+    <node name="run_serial_msckf" pkg="ov_msckf" type="run_serial_msckf" output="screen">
+
+
+        <!-- bag topics -->
+        <param name="topic_imu"      type="string" value="/dvs/imu" />
+        <param name="topic_camera0"  type="string" value="/dvs/image_raw" />
+        <param name="topic_gt_odom"  type="string" value="/groundtruth/odometry" />
+        <param name="topic_gt_pose"  type="string" value="/groundtruth/pose" />
+
+
+        <!-- bag parameters -->
+        <param name="path_bag"    type="string" value="\home\lowmanj\datasets\uzh_fpv\indoor_forward_3_davis_with_gt.bag" />
+        <param name="bag_start"   type="int"    value="0" />
+        <param name="bag_durr"    type="int"    value="-1" />
+
+
+        <!-- world/filter parameters -->
+        <param name="max_clones"             type="int"    value="11" />
+        <param name="max_slam"               type="int"    value="0" />
+        <param name="max_cameras"            type="int"    value="1" />
+        <param name="feat_representation"    type="string" value="GLOBAL_3D" />
+        <param name="init_window_time"       type="double" value="0.5" />
+        <param name="init_imu_thresh"        type="double" value="2.0" />
+        <rosparam param="gravity">[0.0,0.0,9.81]</rosparam>
+
+        <!-- tracker/extractor parameters -->
+        <param name="use_klt"          type="bool"   value="true" />
+        <param name="fast_threshold"   type="int"    value="10" />
+        <param name="grid_x"           type="int"    value="5" />
+        <param name="grid_y"           type="int"    value="3" />
+        <param name="min_px_dist"      type="int"    value="10" />
+        <param name="num_pts"          type="int"    value="400" />
+
+        <!-- sensor noise values / update -->
+        <param name="up_msckf_sigma_px"            type="double"   value="1" />
+        <param name="up_msckf_chi2_multipler"      type="double"   value="1" />
+        <param name="gyroscope_noise_density"      type="double"   value="0.05" />
+        <param name="gyroscope_random_walk"        type="double"   value="4e-05" />
+        <param name="accelerometer_noise_density"  type="double"   value="0.1" />
+        <param name="accelerometer_random_walk"    type="double"   value="2.0000e-3" />
+
+        <!-- camera intrinsics -->
+        <param name="cam0_is_fisheye" type="bool" value="false" />
+        <rosparam param="cam0_k">[458.654,457.296,367.215,248.375]</rosparam>
+        <rosparam param="cam0_d">[-0.28340811,0.07395907,0.00019359,1.76187114e-05]</rosparam>
+
+        <!-- camera extrinsics -->
+        <rosparam param="T_C0toI">
+            [
+            0.99997115, -0.00140853, 0.0074646, 0.00001905,
+            0.0013817 0.99999257, 0.00359816, 0.00441519,
+            -0.00746962, -0.00358775, 0.99996567, 0.0275323,
+            0.0, 0.0, 0.0, 1.0
+            ]
+        </rosparam>
+
+    </node>
+
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find ov_msckf)/launch/display.rviz" />
+
+</launch>
