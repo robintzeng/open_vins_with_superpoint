@@ -11,7 +11,7 @@
 
 
         <!-- bag parameters -->
-        <param name="path_bag"    type="string" value="\home\lowmanj\datasets\uzh_fpv\indoor_forward_3_davis_with_gt.bag" />
+        <param name="path_bag"    type="string" value="/home/lowmanj/datasets/uzh_fpv/indoor_forward_3_davis_with_gt.bag" />
         <param name="bag_start"   type="int"    value="0" />
         <param name="bag_durr"    type="int"    value="-1" />
 
