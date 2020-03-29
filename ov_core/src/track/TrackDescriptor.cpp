@@ -310,11 +310,13 @@ void TrackDescriptor::perform_detection_monocular(const cv::Mat& img0, std::vect
 
     // Extract our features (use FAST with griding)
     std::vector<cv::KeyPoint> pts0_ext;
-    Grider_FAST::perform_griding(img0, pts0_ext, num_features, grid_x, grid_y, threshold, true);
+    cv::Mat desc0_ext;
+
+    Grider_FAST::perform_griding(img0, pts0_ext, num_features, grid_x, grid_y, threshold,true,desc0_ext);
 
     // For all new points, extract their descriptors
-    cv::Mat desc0_ext;
-    this->orb0->compute(img0, pts0_ext, desc0_ext);
+    
+    //this->orb0->compute(img0, pts0_ext, desc0_ext);
 
     // For all good matches, lets append to our returned vectors
     for(size_t i=0; i<pts0_ext.size(); i++) {
@@ -340,27 +342,28 @@ void TrackDescriptor::perform_detection_stereo(const cv::Mat &img0, const cv::Ma
 
     // Extract our features (use FAST with griding)
     std::vector<cv::KeyPoint> pts0_ext, pts1_ext;
+    cv::Mat desc0_ext, desc1_ext;
     boost::thread t_0 = boost::thread(&Grider_FAST::perform_griding, boost::cref(img0), boost::ref(pts0_ext),
-                                      num_features, grid_x, grid_y, threshold, true);
+                                      num_features, grid_x, grid_y, threshold, true,desc0_ext);
     boost::thread t_1 = boost::thread(&Grider_FAST::perform_griding, boost::cref(img1), boost::ref(pts1_ext),
-                                      num_features, grid_x, grid_y, threshold, true);
+                                      num_features, grid_x, grid_y, threshold, true,desc1_ext);
 
     // Wait till both threads finish
     t_0.join();
     t_1.join();
 
     // For all new points, extract their descriptors
-    cv::Mat desc0_ext, desc1_ext;
+    
 
     // Use C++11 lamdas so we can pass all theses variables by reference
-    std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->orb0->compute(img0, pts0_ext, desc0_ext);});
-    std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->orb1->compute(img1, pts1_ext, desc1_ext);});
+    //std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->orb0->compute(img0, pts0_ext, desc0_ext);});
+    //std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->orb1->compute(img1, pts1_ext, desc1_ext);});
     //std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->freak0->compute(img0, pts0_ext, desc0_ext);});
     //std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->freak1->compute(img1, pts1_ext, desc1_ext);});
 
     // Wait till both threads finish
-    t_desc0.join();
-    t_desc1.join();
+    //t_desc0.join();
+    //t_desc1.join();
 
     // Do matching from the left to the right image
     std::vector<cv::DMatch> matches;

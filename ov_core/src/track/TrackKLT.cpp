@@ -323,8 +323,9 @@ void TrackKLT::perform_detection_monocular(const std::vector<cv::Mat> &img0pyr, 
         return;
 
     // Extract our features (use fast with griding)
+    cv::Mat desc0_ext;
     std::vector<cv::KeyPoint> pts0_ext;
-    Grider_FAST::perform_griding(img0pyr.at(0), pts0_ext, num_featsneeded, grid_x, grid_y, threshold, true);
+    Grider_FAST::perform_griding(img0pyr.at(0), pts0_ext, num_featsneeded, grid_x, grid_y, threshold, true,desc0_ext);
 
     // Create a 2D occupancy grid for this current image
     // Note that we scale this down, so that each grid point is equal to a set of pixels
@@ -401,7 +402,8 @@ void TrackKLT::perform_detection_stereo(const std::vector<cv::Mat> &img0pyr, con
 
     // Extract our features (use fast with griding)
     std::vector<cv::KeyPoint> pts0_ext;
-    Grider_FAST::perform_griding(img0pyr.at(0), pts0_ext, num_featsneeded, grid_x, grid_y, threshold, true);
+    cv::Mat desc0_ext;
+    Grider_FAST::perform_griding(img0pyr.at(0), pts0_ext, num_featsneeded, grid_x, grid_y, threshold, true,desc0_ext);
 
 
     // Create a 2D occupancy grid for this current image

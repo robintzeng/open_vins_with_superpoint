@@ -31,6 +31,12 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include <torch/torch.h>
+#include <opencv2/opencv.hpp>
+#include <stdio.h>
+#include "SPextractor.h"
+
+using namespace ORB_SLAM2;
 
 namespace ov_core {
 
@@ -74,7 +80,10 @@ namespace ov_core {
          * It will then return the best from each grid in the return vector.
          */
         static void perform_griding(const cv::Mat &img, std::vector<cv::KeyPoint> &pts, int num_features,
-                                    int grid_x, int grid_y, int threshold, bool nonmaxSuppression) {
+                                    int grid_x, int grid_y, int threshold, bool nonmaxSuppression,cv::Mat descriptors) {
+            
+            ORBextractor* extractor = new ORBextractor(500,1.2,4,0.015,0.007);
+            
 
             // Calculate the size our extraction boxes should be
             int size_x = img.cols / grid_x;
@@ -107,7 +116,9 @@ namespace ov_core {
 
                     // Extract FAST features for this part of the image
                     std::vector<cv::KeyPoint> pts_new;
-                    cv::FAST(img(img_roi), pts_new, threshold, nonmaxSuppression);
+                    
+                    //cv::FAST(img(img_roi), pts_new, threshold, nonmaxSuppression);
+                    (*extractor)(img(img_roi),cv::Mat(),pts_new,descriptors);
 
                     // Now lets get the top number from this
                     std::sort(pts_new.begin(), pts_new.end(), Grider_FAST::compare_response);
