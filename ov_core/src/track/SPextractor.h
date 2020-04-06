@@ -57,7 +57,8 @@ public:
 
     SPextractor(int nfeatures, float scaleFactor, int nlevels,
                  float iniThFAST, float minThFAST);
-
+    SPextractor();
+    
     ~SPextractor(){}
 
     // Compute the SP features and descriptors on an image.

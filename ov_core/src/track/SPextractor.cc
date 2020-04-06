@@ -178,7 +178,10 @@ SPextractor::SPextractor(int _nfeatures, float _scaleFactor, int _nlevels,
     mnFeaturesPerLevel[nlevels-1] = std::max(nfeatures - sumFeatures, 0);
 
 }
-
+SPextractor::SPextractor()
+{
+   SPextractor(500,1.2,4,0.015,0.007);
+}
 
 vector<cv::KeyPoint> SPextractor::DistributeOctTree(const vector<cv::KeyPoint>& vToDistributeKeys, const int &minX,
                                        const int &maxX, const int &minY, const int &maxY, const int &N, const int &level)

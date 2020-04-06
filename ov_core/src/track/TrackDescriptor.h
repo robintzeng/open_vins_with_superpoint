@@ -25,7 +25,7 @@
 #include <opencv2/xfeatures2d.hpp>
 
 #include "TrackBase.h"
-
+#include "SPextractor.h"
 namespace ov_core {
 
 
@@ -147,8 +147,11 @@ namespace ov_core {
         boost::posix_time::ptime rT1, rT2, rT3, rT4, rT5, rT6, rT7;
 
         // Our orb extractor
-        cv::Ptr<cv::ORB> orb0 = cv::ORB::create();
-        cv::Ptr<cv::ORB> orb1 = cv::ORB::create();
+        //cv::Ptr<cv::ORB> orb0 = cv::ORB::create();
+        //cv::Ptr<cv::ORB> orb1 = cv::ORB::create();
+        ORB_SLAM2::ORBextractor sp0;
+        ORB_SLAM2::ORBextractor sp1;
+        
 
         // Our descriptor matcher
         cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create("BruteForce-Hamming");

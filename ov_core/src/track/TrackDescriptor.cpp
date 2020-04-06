@@ -81,7 +81,7 @@ void TrackDescriptor::feed_monocular(double timestamp, cv::Mat &imgin, size_t ca
 
         // Loop through all left matches, and find the old "train" id
         int idll = -1;
-        for(size_t j=0; j<matches_ll.size(); j++){
+        for(size_t j=0; j<matches_ll.size(); j++) {
             if(matches_ll[j].trainIdx == (int)i) {
                 idll = matches_ll[j].queryIdx;
             }
@@ -119,7 +119,7 @@ void TrackDescriptor::feed_monocular(double timestamp, cv::Mat &imgin, size_t ca
     }
 
     // Debug info
-    //ROS_INFO("LtoL = %d | good = %d | fromlast = %d",(int)matches_ll.size(),(int)good_left.size(),num_tracklast);
+    //printf("LtoL = %d | good = %d | fromlast = %d\n",(int)matches_ll.size(),(int)good_left.size(),num_tracklast);
 
 
     // Move forward in time
@@ -130,11 +130,11 @@ void TrackDescriptor::feed_monocular(double timestamp, cv::Mat &imgin, size_t ca
     rT5 =  boost::posix_time::microsec_clock::local_time();
 
     // Our timing information
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for detection",(rT2-rT1).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for matching",(rT3-rT2).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for merging",(rT4-rT3).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for feature DB update (%d features)",(rT5-rT4).total_microseconds() * 1e-6, (int)good_left.size());
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for total",(rT5-rT1).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for detection\n",(rT2-rT1).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for matching\n",(rT3-rT2).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for merging\n",(rT4-rT3).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for feature DB update (%d features)\n",(rT5-rT4).total_microseconds() * 1e-6, (int)good_left.size());
+    //printf("[TIME-DESC]: %.4f seconds for total\n",(rT5-rT1).total_microseconds() * 1e-6);
 
 
 }
@@ -217,7 +217,7 @@ void TrackDescriptor::feed_stereo(double timestamp, cv::Mat &img_leftin, cv::Mat
 
         // Loop through all left matches, and find the old "train" id
         int idll = -1;
-        for(size_t j=0; j<matches_ll.size(); j++){
+        for(size_t j=0; j<matches_ll.size(); j++) {
             if(matches_ll[j].trainIdx == (int)i) {
                 idll = matches_ll[j].queryIdx;
             }
@@ -225,7 +225,7 @@ void TrackDescriptor::feed_stereo(double timestamp, cv::Mat &img_leftin, cv::Mat
 
         // Loop through all left matches, and find the old "train" id
         int idrr = -1;
-        for(size_t j=0; j<matches_rr.size(); j++){
+        for(size_t j=0; j<matches_rr.size(); j++) {
             if(matches_rr[j].trainIdx == (int)i) {
                 idrr = matches_rr[j].queryIdx;
             }
@@ -278,8 +278,8 @@ void TrackDescriptor::feed_stereo(double timestamp, cv::Mat &img_leftin, cv::Mat
 
 
     // Debug info
-    //ROS_INFO("LtoL = %d | RtoR = %d | LtoR = %d | good = %d | fromlast = %d", (int)matches_ll.size(),
-    //         (int)matches_rr.size(),(int)ids_left_new.size(),(int)good_left.size(),num_tracklast);
+    //printf("LtoL = %d | RtoR = %d | LtoR = %d | good = %d | fromlast = %d\n", (int)matches_ll.size(),
+    //       (int)matches_rr.size(),(int)ids_left_new.size(),(int)good_left.size(),num_tracklast);
 
 
     // Move forward in time
@@ -294,11 +294,11 @@ void TrackDescriptor::feed_stereo(double timestamp, cv::Mat &img_leftin, cv::Mat
     rT5 =  boost::posix_time::microsec_clock::local_time();
 
     // Our timing information
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for detection",(rT2-rT1).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for matching",(rT3-rT2).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for merging",(rT4-rT3).total_microseconds() * 1e-6);
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for feature DB update (%d features)",(rT5-rT4).total_microseconds() * 1e-6, (int)good_left.size());
-    //ROS_INFO("[TIME-DESC]: %.4f seconds for total",(rT5-rT1).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for detection\n",(rT2-rT1).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for matching\n",(rT3-rT2).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for merging\n",(rT4-rT3).total_microseconds() * 1e-6);
+    //printf("[TIME-DESC]: %.4f seconds for feature DB update (%d features)\n",(rT5-rT4).total_microseconds() * 1e-6, (int)good_left.size());
+    //printf("[TIME-DESC]: %.4f seconds for total\n",(rT5-rT1).total_microseconds() * 1e-6);
 
 }
 
@@ -309,14 +309,15 @@ void TrackDescriptor::perform_detection_monocular(const cv::Mat& img0, std::vect
     assert(pts0.empty());
 
     // Extract our features (use FAST with griding)
-    std::vector<cv::KeyPoint> pts0_ext;
-    cv::Mat desc0_ext;
-
-    Grider_FAST::perform_griding(img0, pts0_ext, num_features, grid_x, grid_y, threshold,true,desc0_ext);
+    //std::vector<cv::KeyPoint> pts0_ext;
+    //Grider_FAST::perform_griding(img0, pts0_ext, num_features, grid_x, grid_y, threshold, true);
 
     // For all new points, extract their descriptors
-    
+    //cv::Mat desc0_ext;
     //this->orb0->compute(img0, pts0_ext, desc0_ext);
+    cv::Mat desc0_ext;
+    std::vector<cv::KeyPoint> pts0_ext;
+    this->sp0(img0,cv::Mat(),pts0_ext,desc0_ext);
 
     // For all good matches, lets append to our returned vectors
     for(size_t i=0; i<pts0_ext.size(); i++) {
@@ -342,28 +343,27 @@ void TrackDescriptor::perform_detection_stereo(const cv::Mat &img0, const cv::Ma
 
     // Extract our features (use FAST with griding)
     std::vector<cv::KeyPoint> pts0_ext, pts1_ext;
-    cv::Mat desc0_ext, desc1_ext;
     boost::thread t_0 = boost::thread(&Grider_FAST::perform_griding, boost::cref(img0), boost::ref(pts0_ext),
-                                      num_features, grid_x, grid_y, threshold, true,desc0_ext);
+                                      num_features, grid_x, grid_y, threshold, true);
     boost::thread t_1 = boost::thread(&Grider_FAST::perform_griding, boost::cref(img1), boost::ref(pts1_ext),
-                                      num_features, grid_x, grid_y, threshold, true,desc1_ext);
+                                      num_features, grid_x, grid_y, threshold, true);
 
     // Wait till both threads finish
     t_0.join();
     t_1.join();
 
     // For all new points, extract their descriptors
-    
+    cv::Mat desc0_ext, desc1_ext;
 
     // Use C++11 lamdas so we can pass all theses variables by reference
-    //std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->orb0->compute(img0, pts0_ext, desc0_ext);});
-    //std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->orb1->compute(img1, pts1_ext, desc1_ext);});
+    std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->sp0(img0,cv::Mat(), pts0_ext, desc0_ext);});
+    std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->sp1(img1,cv::Mat(), pts1_ext, desc1_ext);});
     //std::thread t_desc0 = std::thread([this,&img0,&pts0_ext,&desc0_ext]{this->freak0->compute(img0, pts0_ext, desc0_ext);});
     //std::thread t_desc1 = std::thread([this,&img1,&pts1_ext,&desc1_ext]{this->freak1->compute(img1, pts1_ext, desc1_ext);});
 
     // Wait till both threads finish
-    //t_desc0.join();
-    //t_desc1.join();
+    t_desc0.join();
+    t_desc1.join();
 
     // Do matching from the left to the right image
     std::vector<cv::DMatch> matches;

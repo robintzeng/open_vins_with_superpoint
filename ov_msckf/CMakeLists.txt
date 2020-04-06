@@ -8,8 +8,12 @@ project(ov_msckf)
 
 # Find catkin (the ROS build system)
 find_package(catkin REQUIRED COMPONENTS roscpp rosbag tf std_msgs geometry_msgs sensor_msgs nav_msgs visualization_msgs cv_bridge ov_core)
+set(CMAKE_PREFIX_PATH /home/robin/libtorch2)	
+set(TORCH_LIBRARIES "/home/robin/libtorch2/lib")
 
 # Include libraries
+find_package(Torch REQUIRED)
+
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV 3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system filesystem thread date_time)
@@ -58,6 +62,7 @@ list(APPEND thirdparty_libraries
         ${Boost_LIBRARIES}
         ${OpenCV_LIBRARIES}
         ${catkin_LIBRARIES}
+        ${TORCH_LIBRARIES}
 )
 
 ##################################################
