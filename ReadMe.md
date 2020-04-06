@@ -10,7 +10,7 @@ Those three should put in the same folder as openvins (in src)
 It will take a long time building the whole project
 
 ## The pretrain model should be download from here
-https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models
+https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models<br />
 Also you should change this line in the SuperPointTF.h
 ```
 const std::string& graph_fn = "/home/robin/work/src/tensorflow_ros_test/models/sp_v6";
