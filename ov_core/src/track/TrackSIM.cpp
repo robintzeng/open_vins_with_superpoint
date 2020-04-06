@@ -20,7 +20,6 @@
  */
 #include "TrackSIM.h"
 
-
 using namespace ov_core;
 
 

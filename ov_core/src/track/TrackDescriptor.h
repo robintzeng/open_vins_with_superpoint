@@ -25,7 +25,7 @@
 #include <opencv2/xfeatures2d.hpp>
 
 #include "TrackBase.h"
-
+#include "SuperPointTF.h"
 namespace ov_core {
 
 
@@ -44,7 +44,7 @@ namespace ov_core {
         /**
          * @brief Public default constructor
          */
-        TrackDescriptor() : TrackBase(), threshold(10), grid_x(8), grid_y(5), knn_ratio(0.75) {}
+        TrackDescriptor() : TrackBase(), threshold(10), grid_x(8), grid_y(5), knn_ratio(0.75),spn() {}
 
         /**
          * @brief Public constructor with configuration variables
@@ -56,7 +56,7 @@ namespace ov_core {
          * @param knnratio matching ratio needed (smaller value forces top two descriptors during match to be more different)
          */
         explicit TrackDescriptor(int numfeats, int numaruco, int fast_threshold, int gridx, int gridy, double knnratio) :
-                                 TrackBase(numfeats, numaruco), threshold(fast_threshold), grid_x(gridx), grid_y(gridy), knn_ratio(knnratio) {}
+                                 TrackBase(numfeats, numaruco), threshold(fast_threshold), grid_x(gridx), grid_y(gridy), knn_ratio(knnratio),spn() {}
 
         /**
          * @brief Process a new monocular image
@@ -149,6 +149,10 @@ namespace ov_core {
         // Our orb extractor
         cv::Ptr<cv::ORB> orb0 = cv::ORB::create();
         cv::Ptr<cv::ORB> orb1 = cv::ORB::create();
+        
+        SuperPointNetwork spn;
+        SuperPoint sp0;
+        SuperPoint sp1;
 
         // Our descriptor matcher
         cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create("BruteForce-Hamming");
