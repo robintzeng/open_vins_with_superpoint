@@ -1,4 +1,27 @@
 
+# Mobile Robotics Team 14
+
+This is the code repository for Team 14 of the Winter 2020 version of Mobile Robotics at University of Michigan. This project makes two changes to the Open VINS library. First, the branches ```SuperPoint``` and ```SuperPointTF``` replace the visual features with SuperPoint features ([citation for SuperPoint](https://arxiv.org/abs/1712.07629 "SuperPoint: Self-Supervised Interest Point Detection and Description")). Second, the branch ```riekf``` modifies the propagation and correction steps of the filter to use an invariant form of the Extended Kalman Filter ([citation for Invariant EKF](https://arxiv.org/abs/1904.09251 "Contact-Aided Invariant Extended Kalman Filtering for Robot State Estimation")). The invariant EKF functions rely on the code repository [invariant-ekf](https://github.com/RossHartley/invariant-ekf).
+
+## SuperPoint
+
+
+## Invariant Extended Kalman Filter
+This project modifies the Open VINS library to an Invariant EKF for covariance propagation and correction. The original Multi-State Constraint Kalman Filter methodology for initializing and triangulating visual features is maintained. Major differences are detailed below:
+
+The filter is composed of two stages, propagation and correction.
+
+1. Propagation
+The class method Propagation::predict_mean_discrete propagates the IMU state forward using the rotation velocity and acceleration readings from the IMU sensor (omega and a).
+
+The class method InEKF::Propagate propagates the uncertainty in the tangent space to update the covariance matrix.
+
+2. Correction
+Visual feature 3D positions (in the global frame), are estimated using Gauss Newton optimization, according to the original MSCKF algorithm in the class method UpdaterMSCKF::update.
+
+The estimated global feature positions are used in the invariant correction step of the class methods InEKF::CorrectLandmarks and InEKF::Correct.
+
+The original Open VINS readme is provided below:
 
 # Open VINS
 
