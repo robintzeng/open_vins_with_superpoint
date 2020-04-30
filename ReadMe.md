@@ -4,7 +4,8 @@
 This is the code repository for Team 14 of the Winter 2020 version of Mobile Robotics at University of Michigan. This project makes two changes to the Open VINS library. First, the branches ```SuperPoint``` and ```SuperPointTF``` replace the visual features with SuperPoint features ([citation for SuperPoint](https://arxiv.org/abs/1712.07629 "SuperPoint: Self-Supervised Interest Point Detection and Description")). Second, the branch ```riekf``` modifies the propagation and correction steps of the filter to use an invariant form of the Extended Kalman Filter ([citation for Invariant EKF](https://arxiv.org/abs/1904.09251 "Contact-Aided Invariant Extended Kalman Filtering for Robot State Estimation")). The invariant EKF functions rely on the code repository [invariant-ekf](https://github.com/RossHartley/invariant-ekf).
 
 ## SuperPoint
-
+SuperPoint is a fully-convolutional neural network architecture with
+a VGG-like encoder. We use the pretrained model [here](https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models).
 
 ## Invariant Extended Kalman Filter
 This project modifies the Open VINS library to an Invariant EKF for covariance propagation and correction. The original Multi-State Constraint Kalman Filter methodology for initializing and triangulating visual features is maintained. Major differences are detailed below:
