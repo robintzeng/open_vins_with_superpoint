@@ -18,7 +18,7 @@ For me, it takes 2 hrs.
 ### 3. Download the pretrain model
 https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models<br />
 
-### Change a line in the SuperPointTF.h
+### 4.Change a line in the SuperPointTF.h
 ```
 const std::string& graph_fn = "/home/robin/work/src/tensorflow_ros_test/models/sp_v6";
 ```
