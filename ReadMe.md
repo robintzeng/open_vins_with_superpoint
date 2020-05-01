@@ -12,8 +12,10 @@ set(TORCH_LIBRARIES "/YOUR LIBTORCH/libtorch2/lib")
 <param name="path_bag"    type="string" value="/home/robin/vin_data/V1_01_easy.bag" />
 ```
 ### 4. source and run
+Outside the src folder
+```
 source devel/setup.bash
 roslaunch ov_msckf tutorial.launch
-
+```
 
 
