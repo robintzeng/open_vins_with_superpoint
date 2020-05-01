@@ -8,6 +8,8 @@ Instead of using the original ORB feature, we implement the superpoint feature e
 
 SuperPoint is a fully-convolutional neural network architecture with a VGG-like encoder. We use the pretrained model [here](https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models) for the tensorflow version. In addition, the pretrain model for the Pytorch version are from [here](https://github.com/magicleap/SuperPointPretrainedNetwork)
 
+For the usage of the branch, please read the readme in the branch.
+
 ## Invariant Extended Kalman Filter
 This project modifies the Open VINS library to an Invariant EKF for covariance propagation and correction. The original Multi-State Constraint Kalman Filter methodology for initializing and triangulating visual features is maintained. Major differences are detailed below:
 
