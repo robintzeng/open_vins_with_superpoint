@@ -6,7 +6,11 @@ This is the code repository for Team 14 of the Winter 2020 version of Mobile Rob
 ## SuperPoint
 Instead of using the original ORB feature, we implement the superpoint feature extractor on both Pytorch (```SuperPoint```) and Tensorflow (```SuperPointTF```) C++ framework with ROS.
 
-SuperPoint is a fully-convolutional neural network architecture with a VGG-like encoder. We use the pretrained model [here](https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models) for the tensorflow version. In addition, the pretrain model for the Pytorch version are from [here](https://github.com/magicleap/SuperPointPretrainedNetwork)
+SuperPoint is a fully-convolutional neural network architecture with a VGG-like encoder. It is a learning-base feature extractor, which outperforms the handcraft feature extractor in many ways.
+
+We use the pretrained model [here](https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models) for the tensorflow version. In addition, the pretrain model for the Pytorch version are from [here](https://github.com/magicleap/SuperPointPretrainedNetwork)
+
+For the evaluation part, we use the tensorflow version to evaluate the performance of the Superpoint. 
 
 For the usage of the branch, please read the readme in the branch.
 
