@@ -6,12 +6,19 @@ git clone https://github.com/tradr-project/tensorflow_ros_cpp.git
 ```
 Those three should put in the same folder as openvins (in src)
 
-### catkin build
-It will take a long time building the whole project
+### 2. catkin build
+Outside the src folder
+```
+source 'YOUR ROS PATH'
+catkin build -j5
+```
+It will take a long time building the whole project.
+For me, it takes 2 hrs.
 
-## The pretrain model should be download from here
+### 3. Download the pretrain model
 https://github.com/rpautrat/SuperPoint/tree/master/pretrained_models<br />
-Also you should change this line in the SuperPointTF.h
+
+### Change a line in the SuperPointTF.h
 ```
 const std::string& graph_fn = "/home/robin/work/src/tensorflow_ros_test/models/sp_v6";
 ```
