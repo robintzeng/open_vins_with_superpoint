@@ -9,9 +9,15 @@ For the evaluation part, we use the tensorflow version to evaluate the performan
 
 For the usage of the branch, please read the readme in the branch.
 
+# Performance 
+Evaluate the performance on the EuRoC  MAV dataset  
+![](figures/Traj.png)
+![](figures/Table_RMSE.png)
+![](figures/Error_med.png)
+![](figures/Error_diff.png)
+![](figures/Table_Time.png)
+
 # Open VINS
-
-
 Welcome to the Open VINS project!
 The Open VINS project houses some core computer vision code along with a state-of-the art filter-based visual-inertial estimator.
 The core filter is an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter) which fuses inertial information with sparse visual feature tracks.
