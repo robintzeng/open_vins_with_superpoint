@@ -7,7 +7,7 @@ wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-de
 set(CMAKE_PREFIX_PATH /YOUR LIBTORCH/libtorch2)	
 set(TORCH_LIBRARIES "/YOUR LIBTORCH/libtorch2/lib")
 ```
-### 3. Change the path of the rosbag in /src/EECS568_team_14_open_vins/ov_msckf/launch/tutorial.launch
+### 3. Change the path of the rosbag in /ov_msckf/launch/tutorial.launch
 ```
 <param name="path_bag"    type="string" value="/home/robin/vin_data/V1_01_easy.bag" />
 ```
